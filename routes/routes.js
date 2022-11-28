@@ -13,6 +13,7 @@ const axios = require("axios");
 
 const config = {
   headers: { Authorization: `Bearer ${TOKEN_KEY}` },
+  "Content-Type": "application/json",
 };
 
 router.get("/token", async (req, res) => {
@@ -31,6 +32,7 @@ router.get("/token", async (req, res) => {
 });
 
 router.get("/materials", async (req, res) => {
+  let artigosList = [];
   axios
     .get(
       `${URL}/api/${TENANT}/${ORGANIZATION}/materialscore/materialsitems`,
@@ -38,7 +40,13 @@ router.get("/materials", async (req, res) => {
     )
     .then((response) => {
       console.log(response);
-      res.send(response);
+      response.data.forEach((livro) => {
+        artigosList.push({
+          name: livro.itemKey,
+          description: livro.description,
+        });
+      });
+      res.send(artigosList);
     })
     .catch((error) => {
       console.log(error);
