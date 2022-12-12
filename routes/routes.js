@@ -36,7 +36,6 @@ router.get("/materials", async (req, res) => {
       });
       console.log("Pedido: ");
       console.log(artigosList);
-      res.send({ itemKey: response.data[0].itemKey });
       //res.send(artigosList);
     })
     .catch((error) => {
