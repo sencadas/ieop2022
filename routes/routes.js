@@ -34,6 +34,8 @@ router.get("/materials", async (req, res) => {
           stock: livro.materialsItemWarehouses[1].stockBalance,
         });
       });
+      console.log("Pedido: ");
+      console.log(artigosList);
       res.send(artigosList);
     })
     .catch((error) => {
