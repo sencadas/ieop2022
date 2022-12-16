@@ -36,7 +36,7 @@ router.get("/materials", async (req, res) => {
       });
       console.log("Pedido: ");
       console.log(artigosList);
-      //res.send(artigosList);
+      res.send({ listaLivros: artigosList });
     })
     .catch((error) => {
       console.log(error);
