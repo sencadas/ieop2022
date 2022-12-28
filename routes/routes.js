@@ -32,6 +32,7 @@ router.get("/materials", async (req, res) => {
           itemKey: livro.itemKey,
           description: livro.description,
           stock: livro.materialsItemWarehouses[1].stockBalance,
+          price: livro.materialsItemWarehouses[1].calculatedUnitCost.amount,
         });
       });
       console.log("Pedido: ");
