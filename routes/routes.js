@@ -28,12 +28,14 @@ router.get("/materials", async (req, res) => {
     .then((response) => {
       //console.log(response);
       response.data.forEach((livro) => {
-        artigosList.push({
-          itemKey: livro.itemKey,
-          description: livro.description,
-          stock: livro.materialsItemWarehouses[1].stockBalance,
-          price: livro.materialsItemWarehouses[1].calculatedUnitCost.amount,
-        });
+        if (livro.materialsItemWarehouses[1].stockBalance > 0) {
+          artigosList.push({
+            itemKey: livro.itemKey,
+            description: livro.description,
+            stock: livro.materialsItemWarehouses[1].stockBalance,
+            price: livro.materialsItemWarehouses[1].calculatedUnitCost.amount,
+          });
+        }
       });
       console.log("Pedido: ");
       console.log(artigosList);
