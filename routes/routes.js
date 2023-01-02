@@ -57,9 +57,11 @@ router.post("/invoices", async (req, res) => {
     headers: { Authorization: `${token.token_type} ${token.access_token}` },
     "Content-Type": "application/json",
   };
-  let date = new Date();
+  let date = new Date("12/30/2022");
 
   const { itemKey, description, quantity, unitPrice, emailTo } = req.body;
+
+  console.log(date);
 
   const body = {
     documentType: "FA",
@@ -133,7 +135,7 @@ router.post("/invoices", async (req, res) => {
       res.send({
         status: false,
         message: error.message,
-        data: error.data,
+        data: error.response.data,
       });
     });
 });
