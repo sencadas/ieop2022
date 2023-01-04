@@ -59,7 +59,28 @@ router.post("/invoices", async (req, res) => {
   };
   let date = new Date("12/30/2022");
 
-  const { itemKey, description, quantity, unitPrice, emailTo } = req.body;
+  const { artigos, emailTo } = req.body;
+
+  const auxArtigos = [];
+
+  artigos.forEach((item) => {
+    auxArtigos.push({
+      salesItem: item.itemKey,
+      description: item.description,
+      warehouse: "PO",
+      quantity: item.quantity,
+      unitPrice: {
+        amount: item.unitPrice,
+        baseAmount: item.unitPrice,
+        reportingAmount: item.unitPrice,
+        fractionDigits: 2,
+        symbol: "€",
+      },
+      unit: "UN",
+      itemTaxSchema: "NORMAL",
+      deliveryDate: date,
+    });
+  });
 
   console.log(date);
 
@@ -87,24 +108,7 @@ router.post("/invoices", async (req, res) => {
     isSimpleInvoice: false,
     isWsCommunicable: false,
     deliveryTerm: "V-VIATURA",
-    documentLines: [
-      {
-        salesItem: itemKey,
-        description: description,
-        warehouse: "PO",
-        quantity: quantity,
-        unitPrice: {
-          amount: unitPrice,
-          baseAmount: unitPrice,
-          reportingAmount: unitPrice,
-          fractionDigits: 2,
-          symbol: "€",
-        },
-        unit: "UN",
-        itemTaxSchema: "NORMAL",
-        deliveryDate: date,
-      },
-    ],
+    documentLines: auxArtigos,
     WTaxTotal: {
       amount: 0,
       baseAmount: 0,
